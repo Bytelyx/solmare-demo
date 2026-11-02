@@ -1,0 +1,121 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Mulish", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-mauve: var(--mauve);
+}
+
+/* Solmare palette: deep emerald green, gold #D8B779, cream. "navy" tokens hold the darkest green. */
+:root {
+  --radius: 1rem;
+  --background: oklch(0.21 0.03 165);
+  --foreground: oklch(0.95 0.025 85);
+  --card: oklch(0.255 0.035 165);
+  --card-foreground: oklch(0.95 0.025 85);
+  --popover: oklch(0.255 0.035 165);
+  --popover-foreground: oklch(0.95 0.025 85);
+  --primary: oklch(0.8 0.085 82);
+  --primary-foreground: oklch(0.17 0.025 165);
+  --secondary: oklch(0.27 0.035 165);
+  --secondary-foreground: oklch(0.95 0.025 85);
+  --muted: oklch(0.27 0.035 165);
+  --muted-foreground: oklch(0.75 0.03 120);
+  --accent: oklch(0.8 0.085 82);
+  --accent-foreground: oklch(0.17 0.025 165);
+  --destructive: oklch(0.6 0.2 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.33 0.035 165);
+  --input: oklch(0.33 0.035 165);
+  --ring: oklch(0.8 0.085 82);
+  --gold: oklch(0.8 0.085 82);
+  --gold-soft: oklch(0.87 0.08 85);
+  --navy: oklch(0.17 0.025 165);
+  --navy-foreground: oklch(0.95 0.025 85);
+  --mauve: oklch(0.72 0.1 20);
+  --gradient-gold: linear-gradient(120deg, var(--gold), var(--gold-soft), var(--gold));
+  --gradient-navy: linear-gradient(160deg, oklch(0.16 0.025 165), oklch(0.25 0.04 165));
+  --shadow-soft: 0 20px 50px -25px color-mix(in oklab, black 60%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; }
+}
+
+@utility text-gradient-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-gradient-gold { background: var(--gradient-gold); }
+@utility bg-gradient-navy { background: var(--gradient-navy); }
+@utility shadow-soft { box-shadow: var(--shadow-soft); }
+@utility eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+}
+@utility btn-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .85rem 1.75rem; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700;
+  background: var(--gradient-gold); color: var(--navy); transition: transform .3s, box-shadow .3s;
+  &:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+}
+@utility btn-navy {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .85rem 1.75rem; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700;
+  background: var(--navy); color: var(--navy-foreground); transition: background .3s;
+  &:hover { background: color-mix(in oklab, var(--navy) 85%, var(--gold)); }
+}
+@utility btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .85rem 1.75rem; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700;
+  border: 1px solid currentColor; transition: background .3s, color .3s;
+  &:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+}
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@utility animate-marquee { animation: marquee 40s linear infinite; }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@utility animate-rise { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
